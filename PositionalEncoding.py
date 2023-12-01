@@ -33,3 +33,5 @@ class PositionalEmbedding(tf.keras.layers.Layer):
         x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
         x = x + self.pos_encoding[tf.newaxis, :length, :]
         return x
+
+# no finish
