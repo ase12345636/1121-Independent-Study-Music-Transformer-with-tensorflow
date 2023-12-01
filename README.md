@@ -1,4 +1,5 @@
-# 1121-Independent-Study-Music-Transformer-with-tensorflow
+# 1121 Independent Study
+### Topic：Music Transformer
 
 In this semeter, our goal is to implementation music transformer.
 
