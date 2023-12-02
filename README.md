@@ -21,7 +21,10 @@ In this semeter, our goal is to implementation music transformer.
 - 2023/12/10 Small Demo
 - 2024/01/?? Project Midterm Report
 ## Right now
-Positional Embeding (Unfinished)
+- 2023/12/03 Create Github repository
+- 2023/12/03 Positional Embeding (Unfinished)
+## Past
+- NULL
 ## Check
 - [ ] Positional Embeding
 - [ ] Add and normalize
@@ -34,7 +37,7 @@ Positional Embeding (Unfinished)
 - [ ] Data Process
 - [ ] Small Demo
 
-## Reference 
+## Reference
 ### Paper
 - [Transformer](https://arxiv.org/abs/1706.03762)
 - [Relation Position](https://arxiv.org/abs/1803.02155v2)
