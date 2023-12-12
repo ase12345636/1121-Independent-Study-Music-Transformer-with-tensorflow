@@ -54,11 +54,3 @@ transformer = Transformer(
     input_vocab_size=tokenizers.pt.get_vocab_size().numpy(),
     target_vocab_size=tokenizers.en.get_vocab_size().numpy(),
     dropout_rate=0.1)
-
-output = transformer((pt, en))
-
-print(en.shape)
-print(pt.shape)
-print(output.shape)
-
-transformer.summary()
