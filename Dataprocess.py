@@ -1,5 +1,6 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
+from Transformer import Transformer
 
 MAX_TOKENS=128
 BUFFER_SIZE = 20000
@@ -44,3 +45,20 @@ def make_batches(ds):
 # Create training and validation set batches.
 train_batches = make_batches(train_examples)
 val_batches = make_batches(val_examples)
+
+transformer = Transformer(
+    num_layers=5,
+    d_model=512,
+    num_heads=8,
+    dff=2048,
+    input_vocab_size=tokenizers.pt.get_vocab_size().numpy(),
+    target_vocab_size=tokenizers.en.get_vocab_size().numpy(),
+    dropout_rate=0.1)
+
+output = transformer((pt, en))
+
+print(en.shape)
+print(pt.shape)
+print(output.shape)
+
+transformer.summary()
