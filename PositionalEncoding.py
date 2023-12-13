@@ -1,35 +1,30 @@
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
+import matplotlib as plt
 
-def positional_encoding(length, depth):
-    depth = depth/2
-
-    positions = np.arange(length)[:, np.newaxis]        # (seq, 1)
-    depths = np.arange(depth)[np.newaxis, :]/depth      # (1, depth)
-
-    angle_rates = 1 / (10000**depths)                   # (1, depth)
-    angle_rads = positions * angle_rates                # (pos, depth)
-
-    pos_encoding = np.concatenate(
-       [np.sin(angle_rads), np.cos(angle_rads)],
-       axis=-1)
+def get_angles(pos, i, d_model):
+    # 这里的i等价与上面公式中的2i和2i+1
+    angle_rates = 1 / np.power(10000, (2*(i // 2))/ np.float32(d_model))
+    return pos * angle_rates
+def positional_encoding(position, d_model):
+    angle_rads = get_angles(np.arange(position)[:, np.newaxis],
+                           np.arange(d_model)[np.newaxis,:],
+                           d_model)
+    # 第2i项使用sin
+    sines = np.sin(angle_rads[:, 0::2])
+    # 第2i+1项使用cos
+    cones = np.cos(angle_rads[:, 1::2])
+    pos_encoding = np.concatenate([sines, cones], axis=-1)
+    pos_encoding = pos_encoding[np.newaxis, ...]
 
     return tf.cast(pos_encoding, dtype=tf.float32)
 
-class PositionalEmbedding(tf.keras.layers.Layer):
-    def __init__(self, vocab_size, d_model):
-        super().__init__()
-        self.d_model = d_model
-        self.embedding = tf.keras.layers.Embedding(vocab_size, d_model, mask_zero=True)
-        self.pos_encoding = positional_encoding(length=2048, depth=d_model)
+pos_encoding = positional_encoding(50, 512)
+print(pos_encoding.shape)
 
-    def compute_mask(self, *args, **kwargs):
-        return self.embedding.compute_mask(*args, **kwargs)
-
-    def call(self, x):
-        length = tf.shape(x)[1]
-        x = self.embedding(x)
-        # This factor sets the relative scale of the embedding and positonal_encoding.
-        x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
-        x = x + self.pos_encoding[tf.newaxis, :length, :]
-        return x
+plt.pcolormesh(pos_encoding[0], cmap='RdBu')
+plt.xlabel('Depth')
+plt.xlim((0, 512))
+plt.ylabel('Position')
+plt.colorbar()
+plt.show() # 在这里左右边分别为原来2i 和 2i+1的特征
