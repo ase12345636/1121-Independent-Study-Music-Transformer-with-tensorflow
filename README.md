@@ -24,7 +24,7 @@ In this semeter, our goal is to implementation music transformer.
 - 2023/12/03 Create Github repository
 - 2023/12/03 Positional Embeding (Unfinished)
 ## Past
-- NULL
+- 2023/12/13 ccuc is dead.
 ## Check
 - [ ] Positional Embeding
 - [ ] Add and normalize
