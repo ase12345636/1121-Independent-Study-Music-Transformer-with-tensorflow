@@ -9,6 +9,13 @@ examples, metadata = tfds.load('ted_hrlr_translate/pt_to_en',
 
 train_examples, val_examples = examples['train'], examples['validation']
 
+model_name = 'ted_hrlr_translate_pt_en_converter'
+tf.keras.utils.get_file(
+    f'{model_name}.zip',
+    f'https://storage.googleapis.com/download.tensorflow.org/models/{model_name}.zip',
+    cache_dir='.', cache_subdir='', extract=True
+)
+
 tokenizers = tf.saved_model.load('ted_hrlr_translate_pt_en_converter')
 
 MAX_TOKENS=128
@@ -26,7 +33,7 @@ def prepare_batch(pt, en):
     return (pt, en_inputs), en_labels
 
 BUFFER_SIZE = 20000
-BATCH_SIZE = 16
+BATCH_SIZE = 64
 def make_batches(ds):
   return (
       ds

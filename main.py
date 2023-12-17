@@ -4,7 +4,6 @@ from transformer import Transformer
 from optimizer import CustomSchedule
 from loss import masked_loss,masked_accuracy
 
-
 train_batches = make_batches(train_examples)
 val_batches = make_batches(val_examples)
 
@@ -36,3 +35,5 @@ transformer.compile(
 transformer.fit(train_batches,
                 epochs=20,
                 validation_data=val_batches)
+
+transformer.save_weights("transformer.h5")
