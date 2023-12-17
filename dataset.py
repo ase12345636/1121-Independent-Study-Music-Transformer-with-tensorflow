@@ -26,7 +26,7 @@ def prepare_batch(pt, en):
     return (pt, en_inputs), en_labels
 
 BUFFER_SIZE = 20000
-BATCH_SIZE = 64
+BATCH_SIZE = 16
 def make_batches(ds):
   return (
       ds

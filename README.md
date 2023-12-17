@@ -9,11 +9,6 @@ In this semeter, our goal is to implementation music transformer.
 
 
 ## Schedule
-- 2023/12/03 Add and normalize
-- 2023/12/04 Self-attention
-- 2023/12/05 Feed forward
-- 2023/12/06 Encode layer
-- 2023/12/06 Decode layer
 - 2023/12/07 Relation Postion
 - 2023/12/08 Music Transformer
 - 2023/12/09 Data Process
@@ -24,13 +19,18 @@ In this semeter, our goal is to implementation music transformer.
 ## Past
 - 2023/12/17 Restart all things.
 - 2023/12/17 Positional Embeding
+- 2023/12/17 Add and normalize
+- 2023/12/17 Self-attention
+- 2023/12/17 Feed forward
+- 2023/12/17 Encode layer
+- 2023/12/17 Decode layer
 ## Check
-- [ ] Positional Embeding
-- [ ] Add and normalize
-- [ ] Self-attention
-- [ ] Feed forward
-- [ ] Encode layer
-- [ ] Decode layer
+- [V] Positional Embeding
+- [V] Add and normalize
+- [V] Self-attention
+- [V] Feed forward
+- [V] Encode layer
+- [V] Decode layer
 - [ ] Relation Postion
 - [ ] Music Transformer
 - [ ] Data Process
