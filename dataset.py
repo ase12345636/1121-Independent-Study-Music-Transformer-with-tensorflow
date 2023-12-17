@@ -2,8 +2,6 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import tensorflow_text
 import numpy as np
-import matplotlib.pyplot as plt
-from position import PositionalEmbedding
 
 examples, metadata = tfds.load('ted_hrlr_translate/pt_to_en',
                                with_info=True,

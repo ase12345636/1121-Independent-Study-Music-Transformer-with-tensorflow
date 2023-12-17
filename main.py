@@ -1,5 +1,5 @@
 from dataset import make_batches,train_examples,val_examples,tokenizers
-from position import PositionalEmbedding
+from absoluteposition import PositionalEmbedding
 
 train_batches = make_batches(train_examples)
 val_batches = make_batches(val_examples)
