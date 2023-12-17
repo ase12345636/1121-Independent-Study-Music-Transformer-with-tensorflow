@@ -9,7 +9,6 @@ In this semeter, our goal is to implementation music transformer.
 
 
 ## Schedule
-- 2023/12/03 Positional Embeding
 - 2023/12/03 Add and normalize
 - 2023/12/04 Self-attention
 - 2023/12/05 Feed forward
@@ -21,10 +20,10 @@ In this semeter, our goal is to implementation music transformer.
 - 2023/12/10 Small Demo
 - 2024/01/?? Project Midterm Report
 ## Right now
-- 2023/12/03 Create Github repository
-- 2023/12/03 Positional Embeding (Unfinished)
+
 ## Past
-- 2023/12/13 ccuc is dead.
+- 2023/12/17 Restart all things.
+- 2023/12/17 Positional Embeding
 ## Check
 - [ ] Positional Embeding
 - [ ] Add and normalize
