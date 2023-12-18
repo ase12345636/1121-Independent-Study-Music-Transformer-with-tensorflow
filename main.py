@@ -1,11 +1,8 @@
 import tensorflow as tf
-from dataset import make_batches,train_examples,val_examples,tokenizers
+from dataset import make_batches,train_batches,val_batches,tokenizers
 from transformer import Transformer
 from optimizer import CustomSchedule
 from loss import masked_loss,masked_accuracy
-
-train_batches = make_batches(train_examples)
-val_batches = make_batches(val_examples)
 
 num_layers = 4
 d_model = 128

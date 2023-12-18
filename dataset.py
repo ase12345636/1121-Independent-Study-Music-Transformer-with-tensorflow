@@ -1,43 +1,35 @@
-import tensorflow as tf
-import tensorflow_datasets as tfds
-import tensorflow_text
+import midi_processor
+import os
 import numpy as np
 
-examples, metadata = tfds.load('ted_hrlr_translate/pt_to_en',
-                               with_info=True,
-                               as_supervised=True)
+# Encode train midi file
+for i in range (1,963):
+    path=os.path.dirname(os.path.abspath(__file__))
+    path+="/Dataset/train/train ("+ str(i) +").midi"
+    encoded = midi_processor.encode_midi(path)
+    resource,target = np.array_split (encoded,2)
 
-train_examples, val_examples = examples['train'], examples['validation']
+for i in range (1,138):
+    path=os.path.dirname(os.path.abspath(__file__))
+    path+="/Dataset/vaild/vaild ("+ str(i) +").midi"
+    encoded = midi_processor.encode_midi(path)
+    resource,target = np.array_split (encoded,2)
 
-model_name = 'ted_hrlr_translate_pt_en_converter'
-tf.keras.utils.get_file(
-    f'{model_name}.zip',
-    f'https://storage.googleapis.com/download.tensorflow.org/models/{model_name}.zip',
-    cache_dir='.', cache_subdir='', extract=True
-)
+for i in range (1,178):
+    path=os.path.dirname(os.path.abspath(__file__))
+    path+="/Dataset/train/test ("+ str(i) +").midi"
+    encoded = midi_processor.encode_midi(path)
+    print(encoded)
+    resource,target = np.array_split (encoded,2)
 
-tokenizers = tf.saved_model.load('ted_hrlr_translate_pt_en_converter')
+'''
+# Create new midi file according to the encoding
+decided = midi_processor.decode_midi(encoded, file_path='sampleout.mid')
 
-MAX_TOKENS=128
 
-def prepare_batch(pt, en):
-    pt = tokenizers.pt.tokenize(pt)      # Output is ragged.
-    pt = pt[:, :MAX_TOKENS]    # Trim to MAX_TOKENS.
-    pt = pt.to_tensor()  # Convert to 0-padded dense Tensor
-
-    en = tokenizers.en.tokenize(en)
-    en = en[:, :(MAX_TOKENS+1)]
-    en_inputs = en[:, :-1].to_tensor()  # Drop the [END] tokens
-    en_labels = en[:, 1:].to_tensor()   # Drop the [START] tokens
-
-    return (pt, en_inputs), en_labels
-
-BUFFER_SIZE = 20000
-BATCH_SIZE = 64
-def make_batches(ds):
-  return (
-      ds
-      .shuffle(BUFFER_SIZE)
-      .batch(BATCH_SIZE)
-      .map(prepare_batch, tf.data.AUTOTUNE)
-      .prefetch(buffer_size=tf.data.AUTOTUNE))
+# Show the contains of midi file
+ins = midi_processor.pretty_midi.PrettyMIDI(path)
+for i in ins.instruments:
+    print(i.control_changes)
+    print(i.notes)
+'''
