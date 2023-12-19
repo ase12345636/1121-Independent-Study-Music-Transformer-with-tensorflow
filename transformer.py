@@ -18,10 +18,10 @@ class Transformer(tf.keras.Model):
 
         self.final_layer = tf.keras.layers.Dense(target_vocab_size)
 
-    def call(self, inputs):
+    def call(self, input):
         # To use a Keras model with `.fit` you must pass all your inputs in the
         # first argument.
-        context, x  = inputs
+        context, x  = input
 
         context = self.encoder(context)  # (batch_size, context_len, d_model)
 
