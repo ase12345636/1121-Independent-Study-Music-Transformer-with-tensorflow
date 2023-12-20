@@ -4,12 +4,14 @@ import numpy as np
 
 train1=[]
 train2=[]
-for i in range (1,2):
+for i in range (1,3):
     path=os.path.dirname(os.path.abspath(__file__))
     path+="/Dataset/train/train ("+ str(i) +").midi"
     encoded0, encoded1 = midi_Tokenization(path)
     train1.append(encoded0)
     train2.append(encoded1)
+# print(train1)
+# print(len(train2))
 print("Finsh training dataset")
 
 vaild1=[]

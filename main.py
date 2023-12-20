@@ -30,8 +30,7 @@ transformer.compile(
     optimizer=optimizer,
     metrics=[masked_accuracy])
 
-
-transformer.fit([train1,train2],
+transformer.fit((train1),
                 epochs=1,
                 validation_data=[vaild1,vaild2])
 

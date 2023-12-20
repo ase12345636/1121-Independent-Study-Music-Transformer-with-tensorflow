@@ -58,4 +58,17 @@ def midi_Tokenization(pm):
 
     encoded1 = numpy.array(processor.encode_midi(os.path.dirname(os.path.abspath(__file__))+"\Piano-e-Compitition-data_"+"1"+".mid"))
 
-    return encoded0 , encoded1
+    t1 = ""
+    t2 = ""
+    for i in range(len(encoded0)):
+        if i != len(encoded0)-1: 
+            t1 += str(encoded0[i])+" "
+        else:
+            t1 += str(encoded0[i])
+    for i in range(len(encoded0)):
+        if i != len(encoded1)-1: 
+            t2 += str(encoded1[i])+" "
+        else:
+            t2 += str(encoded1[i])
+    #print(t1)
+    return t1 , t2
