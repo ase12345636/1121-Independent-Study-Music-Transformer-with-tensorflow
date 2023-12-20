@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def positional_encoding(length, depth):
     depth = depth/2
 
@@ -17,11 +18,13 @@ def positional_encoding(length, depth):
 
     return tf.cast(pos_encoding, dtype=tf.float32)
 
+
 class PositionalEmbedding(tf.keras.layers.Layer):
     def __init__(self, vocab_size, d_model):
         super().__init__()
         self.d_model = d_model
-        self.embedding = tf.keras.layers.Embedding(vocab_size, d_model, mask_zero=True)
+        self.embedding = tf.keras.layers.Embedding(
+            vocab_size, d_model, mask_zero=True)
         self.pos_encoding = positional_encoding(length=2048, depth=d_model)
 
     def compute_mask(self, *args, **kwargs):
@@ -34,3 +37,5 @@ class PositionalEmbedding(tf.keras.layers.Layer):
         x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
         x = x + self.pos_encoding[tf.newaxis, :length, :]
         return x
+
+    # asd
