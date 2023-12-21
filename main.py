@@ -3,7 +3,8 @@ from dataset import train1,train2,vaild1,vaild2
 from transformer import Transformer
 from optimizer import CustomSchedule
 from loss import masked_loss,masked_accuracy
-
+import os
+import keras
 
 num_layers = 4
 d_model = 128
@@ -16,8 +17,8 @@ transformer = Transformer(
     d_model=d_model,
     num_heads=num_heads,
     dff=dff,
-    input_vocab_size=388,
-    target_vocab_size=388,
+    input_vocab_size=338,
+    target_vocab_size=338,
     dropout_rate=dropout_rate)
 
 learning_rate = CustomSchedule(d_model)

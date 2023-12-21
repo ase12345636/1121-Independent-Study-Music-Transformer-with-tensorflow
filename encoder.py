@@ -6,7 +6,6 @@ from absoluteposition import PositionalEmbedding
 class EncoderLayer(tf.keras.layers.Layer):
     def __init__(self,*, d_model, num_heads, dff, dropout_rate=0.1):
         super().__init__()
-
         self.self_attention = GlobalSelfAttention(
             num_heads=num_heads,
             key_dim=d_model,
