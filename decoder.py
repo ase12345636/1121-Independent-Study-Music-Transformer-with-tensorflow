@@ -1,15 +1,19 @@
 import tensorflow as tf
-from attention import CausalSelfAttention,CrossAttention
-from feedback import FeedForward
+from attention import CausalSelfAttention, CrossAttention
+from feedforward import FeedForward
 from absoluteposition import PositionalEmbedding
+
+# from dataset import train_ds
+# from absoluteposition import x_emb, y_emb
+
 
 class DecoderLayer(tf.keras.layers.Layer):
     def __init__(self,
-                *,
-                d_model,
-                num_heads,
-                dff,
-                dropout_rate=0.1):
+                 *,
+                 d_model,
+                 num_heads,
+                 dff,
+                 dropout_rate=0.1):
         super(DecoderLayer, self).__init__()
 
         self.causal_self_attention = CausalSelfAttention(
@@ -34,20 +38,21 @@ class DecoderLayer(tf.keras.layers.Layer):
         x = self.ffn(x)  # Shape `(batch_size, seq_len, d_model)`.
         return x
 
+
 class Decoder(tf.keras.layers.Layer):
     def __init__(self, *, num_layers, d_model, num_heads, dff, vocab_size,
-                dropout_rate=0.1):
+                 dropout_rate=0.1):
         super(Decoder, self).__init__()
 
         self.d_model = d_model
         self.num_layers = num_layers
 
         self.pos_embedding = PositionalEmbedding(vocab_size=vocab_size,
-                                                d_model=d_model)
+                                                 d_model=d_model)
         self.dropout = tf.keras.layers.Dropout(dropout_rate)
         self.dec_layers = [
             DecoderLayer(d_model=d_model, num_heads=num_heads,
-                        dff=dff, dropout_rate=dropout_rate)
+                         dff=dff, dropout_rate=dropout_rate)
             for _ in range(num_layers)]
 
         self.last_attn_scores = None
@@ -59,9 +64,36 @@ class Decoder(tf.keras.layers.Layer):
         x = self.dropout(x)
 
         for i in range(self.num_layers):
-            x  = self.dec_layers[i](x, context)
+            x = self.dec_layers[i](x, context)
 
         self.last_attn_scores = self.dec_layers[-1].last_attn_scores
 
         # The shape of x is (batch_size, target_seq_len, d_model).
         return x
+
+
+# sample_decoder_layer = DecoderLayer(d_model=512, num_heads=4, dff=2048)
+
+# sample_decoder_layer_output = sample_decoder_layer(
+#     x=y_emb, context=x_emb)
+
+# print(x_emb.shape)
+# print(y_emb.shape)
+# print(sample_decoder_layer_output.shape)
+
+# for (x, y), en_labels in train_ds.take(1):
+#     break
+
+# sample_decoder = Decoder(num_layers=4,
+#                          d_model=512,
+#                          num_heads=4,
+#                          dff=2048,
+#                          vocab_size=390)
+
+# output = sample_decoder(
+#     x=y,
+#     context=x_emb)
+
+# print(y.shape)
+# print(x_emb.shape)
+# print(output.shape)

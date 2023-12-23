@@ -5,7 +5,6 @@ RANGE_NOTE_ON = 128
 RANGE_NOTE_OFF = 128
 RANGE_VEL = 32
 RANGE_TIME_SHIFT = 100
-
 START_IDX = {
     'note_on': 0,
     'note_off': RANGE_NOTE_ON,
