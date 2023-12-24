@@ -1,11 +1,16 @@
 import tensorflow as tf
 from attention import GlobalSelfAttention
-from feedback import FeedForward
+from feedforward import FeedForward
 from absoluteposition import PositionalEmbedding
 
+# from dataset import train_ds
+# from absoluteposition import x_emb, y_emb
+
+
 class EncoderLayer(tf.keras.layers.Layer):
-    def __init__(self,*, d_model, num_heads, dff, dropout_rate=0.1):
+    def __init__(self, *, d_model, num_heads, dff, dropout_rate=0.1):
         super().__init__()
+
         self.self_attention = GlobalSelfAttention(
             num_heads=num_heads,
             key_dim=d_model,
@@ -18,9 +23,10 @@ class EncoderLayer(tf.keras.layers.Layer):
         x = self.ffn(x)
         return x
 
+
 class Encoder(tf.keras.layers.Layer):
     def __init__(self, *, num_layers, d_model, num_heads,
-                dff, vocab_size, dropout_rate=0.1):
+                 dff, vocab_size, dropout_rate=0.1):
         super().__init__()
 
         self.d_model = d_model
@@ -31,9 +37,9 @@ class Encoder(tf.keras.layers.Layer):
 
         self.enc_layers = [
             EncoderLayer(d_model=d_model,
-                        num_heads=num_heads,
-                        dff=dff,
-                        dropout_rate=dropout_rate)
+                         num_heads=num_heads,
+                         dff=dff,
+                         dropout_rate=dropout_rate)
             for _ in range(num_layers)]
         self.dropout = tf.keras.layers.Dropout(dropout_rate)
 
@@ -48,3 +54,23 @@ class Encoder(tf.keras.layers.Layer):
             x = self.enc_layers[i](x)
 
         return x  # Shape `(batch_size, seq_len, d_model)`.
+
+
+# sample_encoder_layer = EncoderLayer(d_model=512, num_heads=4, dff=2048)
+
+# print(x_emb.shape)
+# print(sample_encoder_layer(x_emb).shape)
+
+# for (x, y), en_labels in train_ds.take(1):
+#     break
+
+# sample_encoder = Encoder(num_layers=4,
+#                          d_model=512,
+#                          num_heads=4,
+#                          dff=2048,
+#                          vocab_size=390)
+
+# sample_encoder_output = sample_encoder(x, training=False)
+
+# print(x.shape)
+# print(sample_encoder_output.shape)
