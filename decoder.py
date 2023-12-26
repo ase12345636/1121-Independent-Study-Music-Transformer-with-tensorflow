@@ -1,4 +1,5 @@
 import tensorflow as tf
+
 from attention import CausalSelfAttention, CrossAttention
 from feedforward import FeedForward
 from absoluteposition import PositionalEmbedding

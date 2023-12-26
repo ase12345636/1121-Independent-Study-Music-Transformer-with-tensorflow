@@ -57,12 +57,9 @@ class Transformer(tf.keras.Model):
         return logits
 
 
-<<<<<<< HEAD
 # teat:
 
 
-=======
->>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
 # for (x, y_inputs), y_labels in train_ds.take(1):
 #     break
 

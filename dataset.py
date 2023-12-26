@@ -1,19 +1,9 @@
-from midi_processor import midi_Tokenization
 import os
 import random
 import numpy as np
-import processor
-import numpy
-import os
 import tensorflow as tf
-import os
-import time
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from pprint import pprint
-from IPython.display import clear_output
-import tensorflow_datasets as tfds
-import midi_processor
+
+from midi_processor import midi_Tokenization
 
 # train1=[]
 # train2=[]
@@ -40,11 +30,7 @@ import midi_processor
 # print("Finsh vailding dataset")
 
 
-<<<<<<< HEAD
 MAX_TOKENS = 502
-=======
-MAX_TOKENS = 1002
->>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
 
 
 def prepare_batch(x, y):
@@ -64,60 +50,15 @@ def prepare_batch(x, y):
     return (x, y_inputs), y_labels
 
 
-<<<<<<< HEAD
 # handling training data
-=======
->>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
 x = []
 y = []
 
-for i in range(1, 100):
+for i in range(1, 2):
     path = os.path.dirname(os.path.abspath(__file__))
     path += "/Dataset/train/train (" + str(i) + ").midi"
-<<<<<<< HEAD
-=======
     encoded = midi_Tokenization(path)
 
-    a = encoded[:1000]
-    a.insert(0, 389)
-    a.append(390)
-    x.append(a)
-
-    b = encoded[1000:2001]
-    b.insert(0, 389)
-    b.append(390)
-    y.append(b)
-
-
-train_ds = tf.data.Dataset.from_tensor_slices(
-    (np.array(x).reshape(1, -1), np.array(y).reshape(1, -1)))
-
-
-train_ds = (train_ds
-            .shuffle(200)
-            .batch(5)
-            .map(prepare_batch, tf.data.AUTOTUNE)
-            .prefetch(buffer_size=tf.data.AUTOTUNE))
-
-# for (x, y_inputs), y_labels in train_ds.take(1):
-#     break
-
-# print(x.shape)
-# print(y_inputs.shape)
-# print(y_labels.shape)
-
-# print(x[0][:])
-# print(y_inputs[0][:])
-# print(y_labels[0][:])
-
-'''
-for i in range (1,138):
-    path=os.path.dirname(os.path.abspath(__file__))
-    path+="/Dataset/vaild/vaild ("+ str(i) +").midi"
->>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
-    encoded = midi_Tokenization(path)
-
-<<<<<<< HEAD
     start = random.randrange(0, len(encoded)-1001,
                              1) if len(encoded) > 1001 else 0
     encoded = encoded[start:]
@@ -181,12 +122,3 @@ valid_ds = (valid_ds
 # print(x[0][:])
 # print(y_inputs[0][:])
 # print(y_labels[0][:])
-=======
-for i in range (1,178):
-    path=os.path.dirname(os.path.abspath(__file__))
-    path+="/Dataset/train/test ("+ str(i) +").midi"
-    encoded = midi_Tokenization(path)
-    print(encoded)
-    resource,target = np.array_split (encoded,2)
-'''
->>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237

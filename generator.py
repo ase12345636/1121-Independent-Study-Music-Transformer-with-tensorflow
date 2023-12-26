@@ -43,9 +43,9 @@ class MidiGenerator(tf.Module):
                     [output_tensor, tf.cast(predicted_id, dtype=tf.float32)], 1)
 
         midi_sequence = list(
-            tf.cast(output_tensor, dtype=tf.int32).numpy().reshape(-1))
+            tf.cast(output_tensor, dtype=tf.int32).numpy().reshape(-1))[1:]
 
-        x = list(tf.cast(x, dtype=tf.int32).numpy().reshape(-1))[1:-1]
+        x = list(tf.cast(x, dtype=tf.int32).numpy().reshape(-1))[1:-2]
         x.extend(midi_sequence)
 
         processor.decode_midi(x, file_path='Valid-midi_complete.mid')
