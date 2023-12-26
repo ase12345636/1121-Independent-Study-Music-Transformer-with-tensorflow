@@ -3,6 +3,7 @@ import processor
 import numpy as np
 import processor
 
+
 MAX_TOKENS = 502
 
 
@@ -15,13 +16,21 @@ class MidiGenerator(tf.Module):
         for (x, y_inputs), y_labels in valid_ds.take(1):
             break
 
+        midi_sequence_1st_half = []
+        temp = list(tf.cast(x, dtype=tf.int32).numpy().reshape(-1))
+        for i in temp:
+            if temp[i] != 389 or 390 or 0:
+                midi_sequence_1st_half.append(temp[i])
+
+        midi_sequence_2nd_half = []
+
         output_tensor = np.array([389]).reshape(1, 1)
         output_tensor = tf.convert_to_tensor(output_tensor, dtype=tf.int32)
         output_tensor = tf.cast(output_tensor, dtype=tf.float32)
 
         for i in tf.range(max_length):
             predictions = self.transformer(
-                [y_inputs, output_tensor], training=False)
+                [x, output_tensor], training=False)
 
             # Select the last token from the `seq_len` dimension.
             # Shape `(batch_size, 1, vocab_size)`.
@@ -33,21 +42,21 @@ class MidiGenerator(tf.Module):
             # decoder as its input.
 
             if predicted_id == 0:
-                continue
+                output_tensor = tf.concat(
+                    [output_tensor, tf.cast(predicted_id, dtype=tf.float32)], 1)
 
             elif predicted_id == 390:
                 break
 
             else:
+                midi_sequence_2nd_half.extend(list(
+                    tf.cast(predicted_id, dtype=tf.int32).numpy().reshape(-1)))
                 output_tensor = tf.concat(
                     [output_tensor, tf.cast(predicted_id, dtype=tf.float32)], 1)
 
-        midi_sequence = list(
-            tf.cast(output_tensor, dtype=tf.int32).numpy().reshape(-1))[1:]
+        midi_sequence_1st_half.extend(midi_sequence_2nd_half)
 
-        x = list(tf.cast(x, dtype=tf.int32).numpy().reshape(-1))[1:-2]
-        x.extend(midi_sequence)
-
-        processor.decode_midi(x, file_path='Valid-midi_complete.mid')
         processor.decode_midi(
-            midi_sequence, file_path='Valid-midi_output_from_model.mid')
+            midi_sequence_1st_half, file_path='Valid-midi_complete.mid')
+        processor.decode_midi(
+            midi_sequence_2nd_half, file_path='Valid-midi_output_from_model.mid')

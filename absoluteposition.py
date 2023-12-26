@@ -40,6 +40,7 @@ class PositionalEmbedding(tf.keras.layers.Layer):
         return x
 
 
+# # test
 # for (x, y), en_labels in train_ds.take(1):
 #     break
 

@@ -31,6 +31,7 @@ def masked_accuracy(label, pred):
     return tf.reduce_sum(match)/tf.reduce_sum(mask)
 
 
+# # test:
 # for (x, y_inputs), y_labels in train_ds.take(1):
 #     break
 

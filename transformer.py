@@ -1,4 +1,5 @@
 import tensorflow as tf
+
 from encoder import Encoder
 from decoder import Decoder
 
@@ -57,9 +58,7 @@ class Transformer(tf.keras.Model):
         return logits
 
 
-# teat:
-
-
+# # test:
 # for (x, y_inputs), y_labels in train_ds.take(1):
 #     break
 

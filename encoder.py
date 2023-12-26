@@ -1,4 +1,5 @@
 import tensorflow as tf
+
 from attention import GlobalSelfAttention
 from feedforward import FeedForward
 from absoluteposition import PositionalEmbedding
@@ -56,6 +57,7 @@ class Encoder(tf.keras.layers.Layer):
         return x  # Shape `(batch_size, seq_len, d_model)`.
 
 
+# # test
 # sample_encoder_layer = EncoderLayer(d_model=512, num_heads=4, dff=2048)
 
 # print(x_emb.shape)

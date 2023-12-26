@@ -20,6 +20,7 @@ class FeedForward(tf.keras.layers.Layer):
         return x
 
 
+# # test:
 # sample_ffn = FeedForward(512, 2048)
 
 # print(x_emb.shape)

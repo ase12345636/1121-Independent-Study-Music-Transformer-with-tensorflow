@@ -2,11 +2,16 @@ import os
 import random
 import numpy as np
 import tensorflow as tf
-
-from midi_processor import midi_Tokenization
+import processor
 
 
 MAX_TOKENS = 502
+
+
+def midi_Tokenization(pm):
+    encoded = processor.encode_midi(pm)
+
+    return encoded
 
 
 def prepare_batch(x, y):
@@ -30,7 +35,7 @@ def prepare_batch(x, y):
 x = []
 y = []
 
-for i in range(1, 100):
+for i in range(1, 300):
     path = os.path.dirname(os.path.abspath(__file__))
     path += "/Dataset/train/train (" + str(i) + ").midi"
     encoded = midi_Tokenization(path)
@@ -86,8 +91,7 @@ valid_ds = (valid_ds
             .prefetch(buffer_size=tf.data.AUTOTUNE))
 
 
-# teat:
-
+# # test
 # for (x, y_inputs), y_labels in train_ds.take(1):
 #     break
 

@@ -51,6 +51,7 @@ class CausalSelfAttention(BaseAttention):
         return x
 
 
+# # test
 # sample_ca = CrossAttention(num_heads=2, key_dim=512)
 
 # print(x_emb.shape)

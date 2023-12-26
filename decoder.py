@@ -73,6 +73,7 @@ class Decoder(tf.keras.layers.Layer):
         return x
 
 
+# # test:
 # sample_decoder_layer = DecoderLayer(d_model=512, num_heads=4, dff=2048)
 
 # sample_decoder_layer_output = sample_decoder_layer(
