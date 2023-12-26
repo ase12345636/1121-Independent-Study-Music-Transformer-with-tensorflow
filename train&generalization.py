@@ -48,7 +48,7 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
 #                 callbacks=[cp_callback])
 
 transformer.fit(train_ds,
-                epochs=200)
+                epochs=300)
 
 midigenerator = MidiGenerator(transformer)
 midigenerator(train_ds)

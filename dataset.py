@@ -5,30 +5,6 @@ import tensorflow as tf
 
 from midi_processor import midi_Tokenization
 
-# train1=[]
-# train2=[]
-# for i in range (1,3):
-#     path=os.path.dirname(os.path.abspath(__file__))
-#     path+="/Dataset/train/train ("+ str(i) +").midi"
-#     encoded0, encoded1 = midi_Tokenization(path)
-#     train1.append(encoded0)
-#     train2.append(encoded1)
-# # print(train1)
-# # print(len(train2))
-# print("Finsh training dataset")
-
-# vaild1=[]
-# vaild2=[]
-# for i in range (1,2):
-#     path=os.path.dirname(os.path.abspath(__file__))
-#     path+="/Dataset/vaild/vaild ("+ str(i) +").midi"
-#     encoded0, encoded1 = midi_Tokenization(path)
-#     vaild1.append(encoded0)
-#     vaild2.append(encoded1)
-
-
-# print("Finsh vailding dataset")
-
 
 MAX_TOKENS = 502
 
@@ -54,7 +30,7 @@ def prepare_batch(x, y):
 x = []
 y = []
 
-for i in range(1, 2):
+for i in range(1, 100):
     path = os.path.dirname(os.path.abspath(__file__))
     path += "/Dataset/train/train (" + str(i) + ").midi"
     encoded = midi_Tokenization(path)
