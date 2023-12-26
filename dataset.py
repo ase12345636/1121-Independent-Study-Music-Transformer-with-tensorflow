@@ -1,5 +1,6 @@
 from midi_processor import midi_Tokenization
 import os
+import random
 import numpy as np
 import processor
 import numpy
@@ -39,7 +40,11 @@ import midi_processor
 # print("Finsh vailding dataset")
 
 
+<<<<<<< HEAD
+MAX_TOKENS = 502
+=======
 MAX_TOKENS = 1002
+>>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
 
 
 def prepare_batch(x, y):
@@ -59,12 +64,18 @@ def prepare_batch(x, y):
     return (x, y_inputs), y_labels
 
 
+<<<<<<< HEAD
+# handling training data
+=======
+>>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
 x = []
 y = []
 
 for i in range(1, 100):
     path = os.path.dirname(os.path.abspath(__file__))
     path += "/Dataset/train/train (" + str(i) + ").midi"
+<<<<<<< HEAD
+=======
     encoded = midi_Tokenization(path)
 
     a = encoded[:1000]
@@ -103,9 +114,74 @@ train_ds = (train_ds
 for i in range (1,138):
     path=os.path.dirname(os.path.abspath(__file__))
     path+="/Dataset/vaild/vaild ("+ str(i) +").midi"
+>>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
     encoded = midi_Tokenization(path)
-    resource,target = np.array_split (encoded,2)
 
+<<<<<<< HEAD
+    start = random.randrange(0, len(encoded)-1001,
+                             1) if len(encoded) > 1001 else 0
+    encoded = encoded[start:]
+
+    a = encoded[:500]
+    a.insert(0, 389)
+    a.append(390)
+    a += [0]*(MAX_TOKENS-len(a))
+    x += a
+
+    b = encoded[500:1001]
+    b.insert(0, 389)
+    b.append(390)
+    b += [0]*(MAX_TOKENS+1-len(b))
+    y += b
+
+train_ds = tf.data.Dataset.from_tensor_slices(
+    (np.array(x).reshape(-1, MAX_TOKENS), np.array(y).reshape(-1, MAX_TOKENS+1)))
+
+
+train_ds = (train_ds
+            .shuffle(200)
+            .batch(5)
+            .map(prepare_batch, tf.data.AUTOTUNE)
+            .prefetch(buffer_size=tf.data.AUTOTUNE))
+
+
+# handling validation data
+path = os.path.dirname(os.path.abspath(__file__))
+path += "/Dataset/vaild/vaild (1).midi"
+encoded = midi_Tokenization(path)
+
+x_valid = encoded[:500]
+x_valid.insert(0, 389)
+x_valid.append(390)
+
+y_valid = encoded[500:1001]
+y_valid.insert(0, 389)
+y_valid.append(390)
+
+
+valid_ds = tf.data.Dataset.from_tensor_slices(
+    (np.array(x_valid).reshape(1, -1), np.array(y_valid).reshape(1, -1)))
+
+valid_ds = (valid_ds
+            .shuffle(200)
+            .batch(1)
+            .map(prepare_batch, tf.data.AUTOTUNE)
+            .prefetch(buffer_size=tf.data.AUTOTUNE))
+
+
+# teat:
+
+# for (x, y_inputs), y_labels in train_ds.take(1):
+#     break
+
+# print(x.shape)
+# print(y_inputs.shape)
+# print(y_labels.shape)
+
+# print(x[0][:])
+# print(y_inputs[0][:])
+# print(y_labels[0][:])
+=======
 for i in range (1,178):
     path=os.path.dirname(os.path.abspath(__file__))
     path+="/Dataset/train/test ("+ str(i) +").midi"
@@ -113,3 +189,4 @@ for i in range (1,178):
     print(encoded)
     resource,target = np.array_split (encoded,2)
 '''
+>>>>>>> 92946ace48e59a87c04fca725f3f5571845d2237
